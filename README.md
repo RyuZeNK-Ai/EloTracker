@@ -21,6 +21,15 @@ Registra LP, rachas y winrate de tus campeones.
 
 
 **RyuZeNK.Ai**  
-[Instagram](https://www.instagram.com/ryuzenk.ai/) · [LinkedIn](https://www.linkedin.com/in/nicolas-pena-fullstack/) · [GitHub](https://github.com/RyuZeNK-Ai)
+
+<a href="https://www.instagram.com/ryuzenk.ai/" target="_blank">
+  <img src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white" height="28">
+</a>
+<a href="https://www.linkedin.com/in/nicolas-pena-fullstack/" target="_blank">
+  <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" height="28">
+</a>
+<a href="https://github.com/RyuZeNK-Ai" target="_blank">
+  <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" height="28">
+</a>
 
 </div>
