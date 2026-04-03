@@ -75,7 +75,7 @@ button { padding:10px; margin:5px; border:none; border-radius:6px; cursor:pointe
 <button class="win" onclick="addGame('W')">WIN</button>
 <button class="loss" onclick="addGame('L')">LOSS</button>
 
-<p class="small">Si pierdes en 0 LP, responde si/no y tu LP real.</p>
+<p class="small">Solo se preguntará descenso en División IV</p>
 
 <hr>
 
@@ -99,6 +99,10 @@ let data = JSON.parse(localStorage.getItem("data"));
 
 if (!data) initSetup();
 else loadApp();
+
+function isDivisionIV(){
+  return ranks[data.rankIndex].includes("IV");
+}
 
 function initSetup(){
   let html="";
@@ -166,14 +170,22 @@ function addGame(result){
     data.lp-=lp;
 
     if(data.lp<0){
-      let d=prompt("¿Bajaste? (si/no)");
-      if(d==="si"){
-        let newLP=prompt("LP final:");
-        if(data.rankIndex>0){
-          data.rankIndex--;
-          data.lp=parseInt(newLP)||0;
+
+      if(isDivisionIV()){
+        let d=prompt("¿Bajaste? (si/no)");
+
+        if(d==="si"){
+          let newLP=prompt("LP final:");
+          if(data.rankIndex>0){
+            data.rankIndex--;
+            data.lp=parseInt(newLP)||0;
+          }
         }else data.lp=0;
-      }else data.lp=0;
+
+      }else{
+        data.rankIndex--;
+        data.lp=75;
+      }
     }
 
     data.champs[champ].l++;
@@ -202,7 +214,7 @@ function update(){
   updateStatus(stats);
   updateChamps();
 
-  baseWR.innerText=`WR Global: ${getBaseWR()}% (${data.baseWins+data.baseLosses})`;
+  baseWR.innerText=`WR Global: ${getBaseWR()}%`;
 }
 
 function getBaseWR(){
@@ -225,7 +237,7 @@ function updateStats(){
   let prev=(typeof data.mmrValue==="number")?data.mmrValue:(data.lpWin-data.lpLoss);
   data.mmrValue=prev*0.7+newMMR*0.3;
 
-  document.getElementById("mmr").innerText="MMR: "+data.mmrValue.toFixed(2);
+  mmr.innerText="MMR: "+data.mmrValue.toFixed(2);
   document.getElementById("wr").innerText="WR(20): "+wr.toFixed(1)+"%";
 
   return{mmr:data.mmrValue,wr};
@@ -236,19 +248,17 @@ function updateStatus({mmr,wr}){
 
   let status="JUGAR",color="green",msg="";
 
-  if(losses>=3){
+  if(losses>=3 || mmr<-2){
     status="PARAR";color="red";
-    msg="🔴 Racha negativa. Detente.";
+    msg="Detente. Estás perdiendo MMR.";
   }
-  else if(losses===2){
+  else if(losses===2 || mmr<0){
     status="CUIDADO";color="yellow";
-    msg="🟡 Una más y caes.";
+    msg="Cuidado.";
   }
   else{
-    if(mmr>2) msg="🔥 MMR subiendo.";
-    else if(mmr<0 && wr>50) msg="MMR bajo pero vas bien.";
-    else if(wr<50) msg="WR bajo.";
-    else if(wr>55) msg="Buen ritmo.";
+    if(mmr>2) msg="MMR subiendo. Sigue.";
+    else if(wr>55) msg="Vas bien. Sigue.";
     else msg="Estable.";
   }
 
