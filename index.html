@@ -2,15 +2,21 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Zenkai Tracker</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Zenkai Tracker | RyuZeNK.Ai</title>
 <style>
+* {
+  box-sizing: border-box;
+}
+
 body{
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', 'Poppins', Arial, sans-serif;
   background:#0a0a12;
-  color:white;
+  color:#f0f0ff;
   text-align:center;
   margin:0;
+  min-height:100vh;
+  background-image: radial-gradient(circle at 15% 30%, rgba(147,45,204,0.08) 0%, #0a0a12 80%);
 }
 
 .center{
@@ -19,188 +25,323 @@ body{
   flex-direction:column;
   justify-content:center;
   align-items:center;
+  padding:20px;
 }
 
 .title{
-  font-size:60px;
+  font-size:56px;
   font-weight:bold;
-  color:#E220F5;
-  text-shadow:0 0 4px #E220F5, 0 0 8px #932DCC;
+  background: linear-gradient(135deg, #E220F5, #b13be0);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color:transparent;
+  text-shadow:0 0 12px rgba(226,32,245,0.4);
+  letter-spacing: 1px;
+  margin-bottom: 20px;
 }
 
-.rank{
-  font-size:50px;
-  margin:10px;
-  text-shadow:0 0 6px currentColor;
-  font-weight:900;
-  letter-spacing:1px;
+select, input, button {
+  font-family: inherit;
 }
 
 select{
-  padding:14px;
+  padding:14px 20px;
   font-size:18px;
-  border-radius:8px;
-  background:#0f0f1a;
+  border-radius:40px;
+  background:#10101c;
   color:white;
   border:1px solid #932DCC;
   box-shadow:0 0 6px #932DCC;
+  cursor:pointer;
+  outline:none;
+  transition: all 0.2s;
+}
+select:hover {
+  border-color:#E220F5;
+  box-shadow:0 0 10px #E220F5;
+}
+
+/* INPUT LP INICIAL MÁS GRANDE Y CON TEXTO CLARO */
+.lp-input-inicial{
+  width:260px;
+  text-align:center;
+  padding:14px 18px;
+  margin:12px;
+  border-radius:60px;
+  border:1px solid #932DCC;
+  background:#10101c;
+  color:white;
+  font-size:18px;
+  font-weight:bold;
+  outline:none;
+  letter-spacing:0.5px;
+}
+.lp-input-inicial:focus {
+  border-color:#E220F5;
+  box-shadow:0 0 12px #E220F5;
+}
+.lp-input-inicial::placeholder {
+  color:#b0a0cc;
+  font-weight: normal;
+  font-size: 16px;
+  opacity: 0.8;
 }
 
 .lp-input{
-  width:100px;
+  width:140px;
   text-align:center;
-  padding:10px;
-  margin:6px;
-  border-radius:6px;
+  padding:12px;
+  margin:12px;
+  border-radius:40px;
   border:1px solid #932DCC;
-  background:#0f0f1a;
+  background:#10101c;
   color:white;
+  font-size:18px;
+  font-weight:bold;
+  outline:none;
+}
+.lp-input:focus {
+  border-color:#E220F5;
+  box-shadow:0 0 8px #E220F5;
 }
 
 button{
-  padding:10px 16px;
-  margin:6px;
+  padding:12px 24px;
+  margin:8px;
   border:none;
-  border-radius:6px;
+  border-radius:40px;
   font-size:16px;
+  font-weight:bold;
   color:white;
   background:#932DCC;
+  cursor:pointer;
+  transition: transform 0.1s, filter 0.2s;
+}
+button:active {
+  transform: scale(0.96);
+}
+button:hover {
+  filter: brightness(1.05);
+  box-shadow:0 0 6px #E220F5;
 }
 
-.win{background:#22c55e;}
-.loss{background:#ef4444;}
-
+.win{
+  background:#22c55e;
+  box-shadow:0 2px 6px rgba(34,197,94,0.3);
+}
+.loss{
+  background:#ef4444;
+  box-shadow:0 2px 6px rgba(239,68,68,0.3);
+}
 .win-loss{
   display:flex;
   flex-direction:column;
-  gap:10px;
+  gap:15px;
   align-items:center;
+  margin:15px 0;
+  background:#0c0c16cc;
+  backdrop-filter: blur(4px);
+  padding:20px;
+  border-radius:48px;
+  border:1px solid #2a2a3a;
 }
-
 .row{
   display:flex;
   align-items:center;
-  gap:10px;
+  gap:14px;
+  flex-wrap:wrap;
+  justify-content: center;
 }
-
 #status{
-  font-size:48px;
-  margin:20px;
+  font-size:44px;
+  font-weight:800;
+  margin:10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  background: #0c0c16;
+  padding: 12px 28px;
+  border-radius: 100px;
+  display: inline-block;
+  backdrop-filter: blur(4px);
 }
-
+.rank{
+  font-size:54px;
+  font-weight:900;
+  text-shadow:0 0 6px currentColor;
+  letter-spacing:1.5px;
+  background: linear-gradient(145deg, #fff, #d9d9ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 6px rgba(0,0,0,0.5));
+}
+.card{
+  background:#10101cd9;
+  backdrop-filter: blur(4px);
+  padding:16px 12px;
+  margin:10px auto;
+  border-radius:32px;
+  width:240px;
+  border:1px solid #932DCC;
+  transition: 0.1s;
+  font-weight:500;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+.card b {
+  color:#E220F5;
+  font-size:1.2rem;
+}
 .socials{
   position: fixed;
-  bottom: 10px;
+  bottom: 12px;
   left: 12px;
   display:flex;
-  gap:4px;
+  gap:6px;
+  z-index: 99;
 }
-
 .social-btn{
-  padding:3px 6px;
+  padding:5px 12px;
   font-size:11px;
-  background:#0f0f1a;
+  background:#1a1a2a;
   color:#E220F5;
   border:1px solid #932DCC;
+  border-radius: 40px;
 }
-
 .reset-btn{
   position: fixed;
-  bottom: 50px;
-  right: 12px;
-  padding:6px 10px;
-  font-size:12px;
+  bottom: 70px;
+  right: 16px;
+  padding:8px 16px;
+  font-size:13px;
   background:#1f2937;
-  color:#ef4444;
-  border:1px solid #ef4444;
+  color:#ff7777;
+  border:1px solid #ff7777;
+  border-radius: 40px;
+  font-weight: bold;
+  z-index: 99;
+  cursor: pointer;
+  transition: all 0.2s;
 }
-
-.card{
-  background:#0f0f1a;
-  padding:12px;
-  margin:10px;
-  border-radius:10px;
-  width:260px;
-  border:1px solid #932DCC;
+.reset-btn:hover {
+  background:#2d3a4a;
+  transform: scale(1.02);
 }
-
 .signature{
   position: fixed;
-  bottom: 10px;
-  right: 12px;
-  font-size:30px;
-  opacity:0.8;
+  bottom: 14px;
+  right: 18px;
+  font-size:26px;
+  font-weight: 800;
+  opacity:0.9;
+  pointer-events: none;
+  font-family: monospace;
+  letter-spacing: 1px;
 }
-
+/* GLOW REDUCIDO - más nítido y legible */
 .neon{
   color:#E220F5;
   text-shadow:
-    0 0 4px #E220F5,
-    0 0 8px #E220F5,
-    0 0 16px #932DCC,
-    0 0 32px #932DCC;
+    0 0 2px #E220F5,
+    0 0 4px #932DCC;
+}
+h2 {
+  font-size: 2.6rem;
+  margin: 0;
+  background: #0f0f1a;
+  display: inline-block;
+  padding: 8px 28px;
+  border-radius: 60px;
+  font-weight: 800;
+}
+h3 {
+  margin: 6px 0;
+}
+#champSelect {
+  margin: 15px 0 5px;
+  min-width: 200px;
+  font-weight: bold;
+  background:#18182a;
+}
+#champContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 20px;
+  max-width: 700px;
+}
+button#addChampBtn {
+  background: #3b2a4a;
+  border: 1px solid #a355cf;
+}
+@media (max-width: 550px) {
+  .title { font-size: 44px; }
+  .rank { font-size: 38px; }
+  .row { gap: 6px; }
+  .lp-input { width: 100px; font-size: 16px; }
+  .lp-input-inicial { width: 240px; font-size: 16px; }
+  #status { font-size: 30px; padding: 6px 18px; }
+  .reset-btn { bottom: 60px; right: 12px; padding: 6px 12px; font-size: 11px; }
+  .signature { font-size: 20px; bottom: 12px; }
 }
 </style>
 </head>
-
 <body>
 
 <div id="setup" class="center">
-  <div class="title">Completa</div>
-
+  <div class="title">⚡ ZENKAI TRACKER ⚡</div>
   <select id="rank"></select>
-  <input id="lpStart" class="lp-input" type="number" placeholder="LP inicial (0-99)">
-  <button onclick="saveSetup()">Empezar</button>
+  <!-- Input más grande con placeholder dinámico -->
+  <input id="lpStart" class="lp-input-inicial" type="number" placeholder="LP inicial" value="">
+  <button onclick="saveSetup()">🔥 Empezar seguimiento 🔥</button>
+  <div style="margin-top: 32px; font-size:14px; color:#aaa;">Selecciona rango y LP inicial</div>
 </div>
 
 <div id="app" class="center" style="display:none">
-
   <div id="rankDisplay" class="rank"></div>
   <h2 id="lpDisplay"></h2>
-  <h3 id="status"></h3>
+  <div id="status"></div>
 
   <select id="champSelect"></select>
-
   <div class="win-loss">
-
     <div class="row">
-      <div>WIN LP</div>
-      <input id="lpWin" class="lp-input" type="number">
-      <button class="win" onclick="addGame('W')">WIN</button>
+      <span style="font-weight:bold;">🏆 WIN LP</span>
+      <input id="lpWin" class="lp-input" type="number" placeholder="LP" value="20">
+      <button class="win" onclick="addGame('W')">+ VICTORIA +</button>
     </div>
-
     <div class="row">
-      <div>LOSS LP</div>
-      <input id="lpLoss" class="lp-input" type="number">
-      <button class="loss" onclick="addGame('L')">LOSS</button>
+      <span style="font-weight:bold;">💀 LOSS LP</span>
+      <input id="lpLoss" class="lp-input" type="number" placeholder="LP" value="20">
+      <button class="loss" onclick="addGame('L')">- DERROTA -</button>
     </div>
-
   </div>
 
-  <button onclick="addChamp()">Añadir campeón</button>
+  <button id="addChampBtn" onclick="addChamp()">✨ Añadir campeón ✨</button>
   <div id="champContainer"></div>
 </div>
 
 <div class="signature neon">RyuZeNK.Ai</div>
-<button class="reset-btn" onclick="resetAll()">Reset</button>
+<button class="reset-btn" onclick="resetAll()">⟳ Resetear todo</button>
 
 <div class="socials">
-  <a href="https://www.instagram.com/ryuzenk.ai/" target="_blank">
-    <button class="social-btn">Instagram</button>
+  <a href="https://www.instagram.com/ryuzenk.ai/" target="_blank" rel="noopener noreferrer">
+    <button class="social-btn">📸 Instagram</button>
   </a>
-  <a href="https://www.linkedin.com/in/nicolas-pena-fullstack/" target="_blank">
-    <button class="social-btn">LinkedIn</button>
+  <a href="https://www.linkedin.com/in/nicolas-pena-fullstack/" target="_blank" rel="noopener noreferrer">
+    <button class="social-btn">🔗 LinkedIn</button>
   </a>
-  <a href="https://github.com/RyuZeNK-Ai" target="_blank">
-    <button class="social-btn">GitHub</button>
+  <a href="https://github.com/RyuZeNK-Ai" target="_blank" rel="noopener noreferrer">
+    <button class="social-btn">🐙 GitHub</button>
   </a>
 </div>
 
 <script>
-const tiers=["Hierro","Bronce","Plata","Oro","Platino","Esmeralda","Diamante","Maestro","Gran Maestro","Challenger"];
-const divisions=["I","II","III","IV"];
+// ========== CONSTANTES ==========
+const tiers = ["Hierro","Bronce","Plata","Oro","Platino","Esmeralda","Diamante","Maestro","Gran Maestro","Challenger"];
+// Divisiones internas: índice 0 = I (más alto), índice 3 = IV (más bajo)
+const divisions = ["I","II","III","IV"];
 
-const tierColors={
+const tierColors = {
   "Hierro":"#9ca3af",
   "Bronce":"#b45309",
   "Plata":"#d1d5db",
@@ -213,258 +354,472 @@ const tierColors={
   "Challenger":"#facc15"
 };
 
-const rankEl=document.getElementById("rank");
-const lpStartEl=document.getElementById("lpStart");
-const rankDisplay=document.getElementById("rankDisplay");
-const lpDisplay=document.getElementById("lpDisplay");
-const statusEl=document.getElementById("status");
-const champContainer=document.getElementById("champContainer");
-const champSelect=document.getElementById("champSelect");
+// elementos DOM
+const setupDiv = document.getElementById("setup");
+const appDiv = document.getElementById("app");
+const rankSelect = document.getElementById("rank");
+const lpStartInput = document.getElementById("lpStart");
+const rankDisplay = document.getElementById("rankDisplay");
+const lpDisplay = document.getElementById("lpDisplay");
+const statusEl = document.getElementById("status");
+const champContainer = document.getElementById("champContainer");
+const champSelect = document.getElementById("champSelect");
+const lpWinInput = document.getElementById("lpWin");
+const lpLossInput = document.getElementById("lpLoss");
 
-// SOLO tiers normales tienen divisiones
-rankEl.innerHTML = tiers.flatMap(t => {
-  if(["Maestro","Gran Maestro","Challenger"].includes(t)){
-    return [`<option>${t}</option>`];
+// ----- poblar select de rangos: ORDEN VISUAL: IV, III, II, I (de menor a mayor rango en la lista) -----
+function populateRankSelect() {
+  let optionsHtml = "";
+  for (let t of tiers) {
+    if (t === "Maestro" || t === "Gran Maestro" || t === "Challenger") {
+      optionsHtml += `<option value="${t}">${t}</option>`;
+    } else {
+      // Mostrar en orden descendente: IV, III, II, I (índices 3,2,1,0)
+      for (let i = divisions.length - 1; i >= 0; i--) {
+        const d = divisions[i];
+        optionsHtml += `<option value="${t} ${d}">${t} ${d}</option>`;
+      }
+    }
   }
-  return divisions.map(d => `<option>${t} ${d}</option>`);
-}).join("");
+  rankSelect.innerHTML = optionsHtml;
+}
+populateRankSelect();
 
-let data=JSON.parse(localStorage.getItem("data"));
-if(data) loadApp();
+// función dinámica para placeholder y validación de LP inicial
+function updateLpPlaceholderAndLimits() {
+  const selectedRaw = rankSelect.value;
+  const isMasterOrAbove = isMasterGrandChallengerByString(selectedRaw);
+  
+  if (isMasterOrAbove) {
+    lpStartInput.placeholder = "📊 LP (0 - 1000)";
+    lpStartInput.max = 1000;
+    lpStartInput.min = 0;
+    lpStartInput.style.borderColor = "#c084fc";
+  } else {
+    lpStartInput.placeholder = "🎯 LP (1 - 99)";
+    lpStartInput.max = 99;
+    lpStartInput.min = 1;
+    lpStartInput.style.borderColor = "#60a5fa";
+  }
+  let currentVal = parseInt(lpStartInput.value);
+  if (!isNaN(currentVal)) {
+    if (isMasterOrAbove && (currentVal < 0 || currentVal > 1000)) lpStartInput.value = "";
+    if (!isMasterOrAbove && (currentVal < 1 || currentVal > 99)) lpStartInput.value = "";
+  }
+}
 
-function saveSetup(){
-  let lp=parseInt(lpStartEl.value);
-  if(isNaN(lp)||lp<0||lp>1000){
-    alert("LP inválido");
+// helper: detectar si la opción seleccionada es Maestro, Gran Maestro o Challenger
+function isMasterGrandChallengerByString(rankStr) {
+  return rankStr === "Maestro" || rankStr === "Gran Maestro" || rankStr === "Challenger";
+}
+
+// Obtener tierIndex y divisionIndex desde string rank (convierte la visual a índice correcto)
+function parseRankString(rankStr) {
+  if (isMasterGrandChallengerByString(rankStr)) {
+    let tierIndex = tiers.indexOf(rankStr);
+    return { tierIndex, divisionIndex: null };
+  } else {
+    let parts = rankStr.split(" ");
+    let tierName = parts[0];
+    let divisionLetter = parts[1];
+    let tierIndex = tiers.indexOf(tierName);
+    // Convertir división visual a índice interno (I=0, II=1, III=2, IV=3)
+    let divisionIndex = divisions.indexOf(divisionLetter);
+    return { tierIndex, divisionIndex };
+  }
+}
+
+// Evento cambio en selector de rango (setup)
+rankSelect.addEventListener("change", () => {
+  updateLpPlaceholderAndLimits();
+});
+// inicializar placeholder
+updateLpPlaceholderAndLimits();
+
+// data global
+let data = null;
+let currentSelectedChamp = null;
+
+// Cargar datos desde localStorage
+function loadStoredData() {
+  const stored = localStorage.getItem("data");
+  if (stored) {
+    try {
+      data = JSON.parse(stored);
+      if (data && typeof data.tierIndex === "number" && typeof data.lp === "number" && Array.isArray(data.champs)) {
+        if (data.lastSelectedChamp) {
+          currentSelectedChamp = data.lastSelectedChamp;
+        }
+        return true;
+      } else {
+        data = null;
+      }
+    } catch(e) { data = null; }
+  }
+  return false;
+}
+
+// guardar datos incluyendo el campeón seleccionado actualmente
+function saveData() {
+  if (data) {
+    if (champSelect && champSelect.value && champSelect.value !== "── Añade campeones ──") {
+      data.lastSelectedChamp = champSelect.value;
+    } else if (currentSelectedChamp) {
+      data.lastSelectedChamp = currentSelectedChamp;
+    }
+    localStorage.setItem("data", JSON.stringify(data));
+  }
+}
+
+// mostrar pantalla principal
+function loadAppInterface() {
+  setupDiv.style.display = "none";
+  appDiv.style.display = "flex";
+  updateUI();
+}
+
+// validación y guardado de setup inicial
+function saveSetup() {
+  let selectedRank = rankSelect.value;
+  let lpRaw = lpStartInput.value.trim();
+  let lp = parseInt(lpRaw);
+  
+  const isElite = isMasterGrandChallengerByString(selectedRank);
+  
+  if (isNaN(lp)) {
+    alert(`⚠️ Ingresa un número de LP válido.`);
     return;
   }
-
-  let selected=rankEl.value;
-
-  let tierIndex=tiers.indexOf(selected.split(" ")[0]);
-  let divisionIndex=0;
-
-  if(!["Maestro","Gran Maestro","Challenger"].includes(selected)){
-    divisionIndex=divisions.indexOf(selected.split(" ")[1]);
+  
+  if (isElite) {
+    if (lp < 0 || lp > 1000) {
+      alert(`Para ${selectedRank} el LP inicial debe estar entre 0 y 1000.`);
+      return;
+    }
+  } else {
+    if (lp < 1 || lp > 99) {
+      alert(`Para rangos Hierro - Diamante, el LP inicial debe ser entre 1 y 99.`);
+      return;
+    }
   }
-
-  data={
-    tierIndex,
-    divisionIndex,
-    lp:lp,
-    champs:[],
-    lossStreak:0
+  
+  let { tierIndex, divisionIndex } = parseRankString(selectedRank);
+  if (tierIndex === undefined) {
+    alert("Rango inválido");
+    return;
+  }
+  
+  data = {
+    tierIndex: tierIndex,
+    divisionIndex: (divisionIndex !== undefined && divisionIndex !== null) ? divisionIndex : 0,
+    lp: lp,
+    champs: [],
+    lossStreak: 0,
+    lastSelectedChamp: null
   };
-
-  save(); loadApp();
+  
+  saveData();
+  loadAppInterface();
 }
 
-function loadApp(){
-  setup.style.display="none";
-  app.style.display="flex";
-  update();
-}
-
-function addChamp(){
-  let name=prompt("Nombre del campeón");
-  if(!name) return;
-
-  name = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
-
-  if(!/^[a-zA-Záéíóúñ ]+$/.test(name)){
-    alert("Solo letras");
+// Lógica de promoción
+function checkPromotion() {
+  let currentTier = tiers[data.tierIndex];
+  
+  if (currentTier === "Challenger") {
+    if (data.lp > 1000) data.lp = 1000;
     return;
   }
-
-  let games=prompt("Partidas");
-  if(!/^\d+$/.test(games)){
-    alert("Solo números");
-    return;
-  }
-
-  let wr=prompt("Winrate 0-100");
-  if(!/^\d+(\.\d+)?$/.test(wr) || wr<0 || wr>100){
-    alert("Winrate inválido");
-    return;
-  }
-
-  games=parseInt(games);
-  wr=parseFloat(wr);
-
-  let wins=Math.round(games*(wr/100));
-  let losses=games-wins;
-
-  data.champs.push({name,w:wins,l:losses});
-
-  save(); update();
-}
-
-function checkPromotion(){
-
-  if(tiers[data.tierIndex] === "Challenger"){
-    if(data.lp > 1000) data.lp = 1000;
-    return;
-  }
-
-  if(tiers[data.tierIndex] === "Gran Maestro"){
-    if(data.lp >= 500){
+  
+  if (currentTier === "Gran Maestro") {
+    if (data.lp >= 500) {
       data.lp -= 500;
       data.tierIndex++;
+      if (data.lp > 1000) data.lp = 1000;
     }
     return;
   }
-
-  if(tiers[data.tierIndex] === "Maestro"){
-    if(data.lp >= 200){
+  
+  if (currentTier === "Maestro") {
+    if (data.lp >= 200) {
       data.lp -= 200;
       data.tierIndex++;
+      return;
     }
     return;
   }
-
-  while(data.lp >= 100){
+  
+  while (data.lp >= 100) {
     data.lp -= 100;
-
-    if(data.divisionIndex > 0){
+    if (data.divisionIndex > 0) {
       data.divisionIndex--;
-    }else{
-      data.divisionIndex = 3;
-      data.tierIndex++;
+    } else {
+      if (data.tierIndex + 1 < tiers.length && !["Maestro","Gran Maestro","Challenger"].includes(tiers[data.tierIndex+1])) {
+        data.tierIndex++;
+        data.divisionIndex = 3;
+      } else if (data.tierIndex + 1 < tiers.length) {
+        data.tierIndex++;
+        data.divisionIndex = 0;
+        break;
+      } else {
+        break;
+      }
     }
+  }
+  if (tiers[data.tierIndex] === "Maestro" || tiers[data.tierIndex] === "Gran Maestro" || tiers[data.tierIndex] === "Challenger") {
+    data.divisionIndex = 0;
   }
 }
 
-function checkDemotion(){
-
-  if(tiers[data.tierIndex] === "Challenger"){
-    if(data.lp < 0){
-      data.tierIndex--;
-      data.lp = 499;
-    }
+// Demotion con mensaje corto
+function checkDemotion() {
+  let currentTierName = tiers[data.tierIndex];
+  
+  if (currentTierName === "Challenger") {
+    if (data.lp < 0) data.lp = 0;
     return;
   }
-
-  if(tiers[data.tierIndex] === "Gran Maestro"){
-    if(data.lp < 0){
+  
+  if (currentTierName === "Gran Maestro") {
+    if (data.lp < 0) {
       data.tierIndex--;
       data.lp = 199;
+      data.divisionIndex = 0;
+      return;
     }
     return;
   }
-
-  if(tiers[data.tierIndex] === "Maestro"){
-    if(data.lp < 0){
+  
+  if (currentTierName === "Maestro") {
+    if (data.lp < 0) {
       data.tierIndex--;
       data.divisionIndex = 0;
       data.lp = 99;
+      return;
     }
     return;
   }
-
-  if(data.tierIndex === 0 && data.divisionIndex === 3){
-    if(data.lp < 0) data.lp = 0;
+  
+  if (data.tierIndex === 0 && data.divisionIndex === 3) {
+    if (data.lp < 0) data.lp = 0;
     return;
   }
-
-  while(data.lp < 0){
-    if(data.divisionIndex < 3){
-      data.divisionIndex++;
-      data.lp = 0;
+  
+  while (data.lp < 0) {
+    if (data.divisionIndex === 3) {
+      if (data.tierIndex === 0 && data.divisionIndex === 3) {
+        data.lp = 0;
+        return;
+      }
+      let confirmMsg = prompt(`¿Realmente bajaste de división? (SI/NO)`);
+      if (confirmMsg === null) continue;
+      let answer = confirmMsg.trim().toLowerCase();
+      if (answer !== "si" && answer !== "no") {
+        alert("Escribe SI o NO");
+        continue;
+      }
+      if (answer === "no") {
+        data.lp = 0;
+        return;
+      }
+      let newLpPrompt = prompt(`Ingresa los LP con los que quedaste en ${tiers[data.tierIndex-1]} ${divisions[0]}:`);
+      let newLp = parseInt(newLpPrompt);
+      if (isNaN(newLp) || newLp < 0 || newLp > 99) {
+        alert("LP inválido, debe ser número entre 0 y 99.");
+        continue;
+      }
+      data.tierIndex--;
+      data.divisionIndex = 0;
+      data.lp = newLp;
       return;
-    }else{
-      if(data.tierIndex > 0){
-        data.tierIndex--;
-        data.divisionIndex = 0;
-        data.lp = 99;
+    } else {
+      if (data.divisionIndex + 1 <= 3) {
+        data.divisionIndex++;
+        data.lp = 75;
+        return;
+      } else {
+        data.lp = 0;
         return;
       }
     }
   }
 }
 
-function addGame(result){
-  let champName=champSelect.value;
-
-  if(!champName){
-    alert("Debes seleccionar un campeón");
+// Agregar campeón
+function addChamp() {
+  let name = prompt("🏆 Nombre del campeón:");
+  if (!name) return;
+  name = name.trim();
+  if (name === "") return;
+  name = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+  if (!/^[a-zA-ZáéíóúñÁÉÍÓÚÑ ]+$/.test(name)) {
+    alert("Solo letras y espacios.");
     return;
   }
-
-  let lp = result==="W"
-    ? parseInt(lpWin.value)
-    : parseInt(lpLoss.value);
-
-  if(isNaN(lp)||lp<=0||lp>60){
-    alert("LP debe estar entre 1 y 60");
+  
+  let gamesRaw = prompt("📊 Partidas totales jugadas con este campeón:");
+  if (!gamesRaw) return;
+  if (!/^\d+$/.test(gamesRaw)) {
+    alert("Solo números enteros.");
     return;
   }
+  let games = parseInt(gamesRaw);
+  if (games < 0) { alert("Partidas no negativas"); return; }
+  
+  let wrRaw = prompt("📈 Winrate % (0-100):");
+  if (!wrRaw) return;
+  if (!/^\d+(\.\d+)?$/.test(wrRaw)) {
+    alert("Winrate numérico válido.");
+    return;
+  }
+  let wr = parseFloat(wrRaw);
+  if (wr < 0 || wr > 100) {
+    alert("Winrate debe estar entre 0 y 100");
+    return;
+  }
+  
+  let wins = Math.round(games * (wr / 100));
+  let losses = games - wins;
+  
+  data.champs.push({ name: name, w: wins, l: losses });
+  saveData();
+  updateUI();
+  if (data.champs.length > 0) {
+    champSelect.value = name;
+    currentSelectedChamp = name;
+    saveData();
+  }
+}
 
-  let champ=data.champs.find(c=>c.name===champName);
-
-  if(result==="W"){
-    data.lp+=lp;
+// registrar partida
+function addGame(result) {
+  let champName = champSelect.value;
+  if (!champName || champName === "" || champName === "── Añade campeones ──") {
+    alert("❌ Selecciona un campeón de la lista.");
+    return;
+  }
+  let champ = data.champs.find(c => c.name === champName);
+  if (!champ) {
+    alert("Campeón no encontrado.");
+    return;
+  }
+  
+  let lpValue = result === "W" ? parseInt(lpWinInput.value) : parseInt(lpLossInput.value);
+  if (isNaN(lpValue) || lpValue < 1 || lpValue > 60) {
+    alert("El LP debe ser un número entre 1 y 60.");
+    return;
+  }
+  
+  if (result === "W") {
+    data.lp += lpValue;
     champ.w++;
-    data.lossStreak=0;
-  }else{
-    data.lp-=lp;
+    data.lossStreak = 0;
+  } else {
+    data.lp -= lpValue;
     champ.l++;
     data.lossStreak++;
   }
-
+  
   checkPromotion();
   checkDemotion();
-
-  save(); update();
+  
+  let currentTier = tiers[data.tierIndex];
+  if (currentTier === "Challenger" && data.lp > 1000) data.lp = 1000;
+  if (currentTier === "Gran Maestro" && data.lp > 499) data.lp = 499;
+  if (currentTier === "Maestro" && data.lp > 199) data.lp = 199;
+  if (!["Maestro","Gran Maestro","Challenger"].includes(currentTier) && data.lp > 99) data.lp = 99;
+  
+  currentSelectedChamp = champName;
+  saveData();
+  updateUI();
 }
 
-function updateStatus(){
-  let l=data.lossStreak;
+// Actualizar UI
+function updateUI() {
+  if (!data) return;
+  let tier = tiers[data.tierIndex];
+  let rankText = "";
+  if (tier === "Maestro" || tier === "Gran Maestro" || tier === "Challenger") {
+    rankText = tier;
+  } else {
+    let divisionIdx = data.divisionIndex;
+    if (divisionIdx === undefined || divisionIdx < 0) divisionIdx = 0;
+    rankText = tier + " " + divisions[divisionIdx];
+  }
+  rankDisplay.innerText = rankText;
+  rankDisplay.style.color = tierColors[tier] || "#E220F5";
+  lpDisplay.innerText = `LP: ${data.lp}`;
+  
+  let streak = data.lossStreak;
+  if (streak >= 2) {
+    statusEl.innerText = "⚠️ DETENTE ❌";
+    statusEl.style.color = "#ef4444";
+  } else if (streak === 1) {
+    statusEl.innerText = "⚡ CUIDADO ⚠️";
+    statusEl.style.color = "#eab308";
+  } else {
+    statusEl.innerText = "✅ JUGAR ✅";
+    statusEl.style.color = "#22c55e";
+  }
+  
+  let previousSelection = champSelect.value;
+  let champToSelect = null;
+  if (currentSelectedChamp && data.champs.some(c => c.name === currentSelectedChamp)) {
+    champToSelect = currentSelectedChamp;
+  } else if (previousSelection && previousSelection !== "── Añade campeones ──" && data.champs.some(c => c.name === previousSelection)) {
+    champToSelect = previousSelection;
+  } else if (data.champs.length > 0 && data.lastSelectedChamp && data.champs.some(c => c.name === data.lastSelectedChamp)) {
+    champToSelect = data.lastSelectedChamp;
+  }
+  
+  if (data.champs.length === 0) {
+    champSelect.innerHTML = '<option disabled selected>── Añade campeones ──</option>';
+    currentSelectedChamp = null;
+  } else {
+    champSelect.innerHTML = data.champs.map(c => `<option value="${c.name}">${c.name}</option>`).join("");
+    if (champToSelect && data.champs.some(c => c.name === champToSelect)) {
+      champSelect.value = champToSelect;
+      currentSelectedChamp = champToSelect;
+    } else {
+      champSelect.value = data.champs[0].name;
+      currentSelectedChamp = data.champs[0].name;
+    }
+  }
+  
+  champContainer.innerHTML = "";
+  data.champs.forEach(c => {
+    let total = c.w + c.l;
+    let wr = total ? ((c.w / total) * 100).toFixed(1) : "0.0";
+    champContainer.innerHTML += `
+      <div class="card">
+        <b>${c.name}</b><br>
+        🎮 Partidas: ${total}<br>
+        📊 WR: ${wr}%<br>
+        <span style="font-size:12px;">✅ ${c.w}W  ❌ ${c.l}L</span>
+      </div>`;
+  });
+  
+  if (data.champs.length > 0 && champSelect.value && champSelect.value !== "── Añade campeones ──") {
+    data.lastSelectedChamp = champSelect.value;
+  }
+  saveData();
+}
 
-  if(l>=2){
-    statusEl.innerText="DETENTE ❌";
-    statusEl.style.color="#ef4444";
-  }else if(l===1){
-    statusEl.innerText="CUIDADO ⚠️";
-    statusEl.style.color="#eab308";
-  }else{
-    statusEl.innerText="JUGAR ✅";
-    statusEl.style.color="#22c55e";
+function resetAll() {
+  if (confirm("⚠️ Reseteará todo el progreso ¿Estás seguro?")) {
+    localStorage.removeItem("data");
+    location.reload();
   }
 }
 
-function update(){
-  let tier=tiers[data.tierIndex];
-
-  let text = ["Maestro","Gran Maestro","Challenger"].includes(tier)
-    ? tier
-    : tier+" "+divisions[data.divisionIndex];
-
-  rankDisplay.innerText=text;
-  rankDisplay.style.color = tierColors[tier];
-
-  lpDisplay.innerText="LP: "+data.lp;
-
-  updateStatus();
-
-  champSelect.innerHTML=data.champs.map(c=>`<option>${c.name}</option>`).join("");
-
-  champContainer.innerHTML="";
-  data.champs.forEach(c=>{
-    let total=c.w+c.l;
-    let wr=total?((c.w/total)*100).toFixed(1):0;
-
-    champContainer.innerHTML+=`
-      <div class="card">
-        <b>${c.name}</b><br>
-        Partidas: ${total}<br>
-        WR: ${wr}%
-      </div>`;
-  });
+// Inicialización
+if (loadStoredData()) {
+  loadAppInterface();
+} else {
+  setupDiv.style.display = "flex";
+  appDiv.style.display = "none";
+  updateLpPlaceholderAndLimits();
 }
-
-function save(){localStorage.setItem("data",JSON.stringify(data));}
-function resetAll(){localStorage.removeItem("data");location.reload();}
 </script>
-
 </body>
 </html>
